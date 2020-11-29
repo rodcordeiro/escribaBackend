@@ -11,6 +11,7 @@ router.get('/',(req,res)=>{
     })
 });
 router.get('/chapters',chapters.index);
+router.get('/chapters/:id',chapters.search);
 router.post('/chapters/create',chapters.create);
 router.put('/chapters/:id',chapters.update);
 router.delete('/chapters/:id',chapters.delete);

@@ -2,22 +2,20 @@ const connection = require('../database/connection');
 
 module.exports = {
     async index(req, res){
-        const chapters = await connection('chapters')
+        await connection('chapters')
             .select('*')
-            .then(chapters=>{
-                return res.json(chapters)
+            .then(response=>{
+                return res.json(response)
             })
             .catch(err=>{
                 return res.json(err.message)
             });
-
-        return res.json({action:"create",chapter:{id,title}})
     },
     async create(req, res){
         const { title, text } = req.body;
         const [id] = await connection('chapters').insert({ title, text })
 
-        return res.json({chapter:{id,title}});
+        return res.json({action:"create",chapter:{id,title}});
     },
     async update(req, res){
         const { id } = req.params;
@@ -43,5 +41,19 @@ module.exports = {
             .catch(err=>{
                 return res.status(err.statusCode).json(err.message)
             })
-    }
+    },
+    async search(req, res){
+        const { id } = req.params;
+        await connection('chapters')
+            .select('*')
+            .where({id})
+            .first()
+            .then(response=>{
+                return res.send(response)
+            })
+            .catch(err=>{
+                return res.json(err.message)
+            });
+    },
+    
 }
