@@ -15,6 +15,9 @@ module.exports = {
         const { title, text } = req.body;
         const [id] = await connection('chapters')
             .insert({ title, text })
+            .then(response=>{
+                console.log(response)
+            })
             .catch(err=>{
                 throw new Error(err);
             })
