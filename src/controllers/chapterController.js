@@ -18,9 +18,6 @@ module.exports = {
             .then(response=>{
                 return res.json({action:"create",chapter:{title}});
             })
-            .catch(err=>{
-                throw new Error(err);
-            })
 
         
     },
