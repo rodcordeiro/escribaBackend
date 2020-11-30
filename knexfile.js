@@ -30,14 +30,13 @@ module.exports = {
   },
 
   production: {
-    client: 'sqlite3',
-    connection: {
-      filename: './src/database/database.sqlite3'
-    }, 
-    migrations:{
-      directory: './src/database/migrations'
-    },
-    useNullAsDefault: true
-  },
+    client: 'pg',
+    connection: process.env.DATABASE_URL,
+    searchPath: 'knex,public',
+    pool: { min: 0, max: 7 },
+    migrations: [
+      "./src/database/migrations/"
+    ],
+  }
 
 };
