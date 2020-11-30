@@ -13,16 +13,16 @@ module.exports = {
     },
     async create(req, res){
         const { title, text } = req.body;
-        const [id] = await connection('chapters')
+        await connection('chapters')
             .insert({ title, text })
             .then(response=>{
-                console.log(response)
+                return res.json({action:"create",chapter:{title}});
             })
             .catch(err=>{
                 throw new Error(err);
             })
 
-        return res.json({action:"create",chapter:{id,title}});
+        
     },
     async update(req, res){
         const { id } = req.params;
