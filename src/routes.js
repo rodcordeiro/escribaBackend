@@ -16,9 +16,9 @@ router.get('/',(req,res)=>{
 //Chapters
 router.get('/chapters',chapters.index);
 router.get('/chapters/:id',chapters.search);
-router.post('/chapters/create',jwt.verify,chapters.create);
-router.put('/chapters/:id',jwt.verify,chapters.update);
-router.delete('/chapters/:id',jwt.verify,chapters.delete);
+router.post('/chapters/create',chapters.create);
+router.put('/chapters/:id',chapters.update);
+router.delete('/chapters/:id',chapters.delete);
 
 //Users
 router.get('/users',UserController.index)
