@@ -8,7 +8,9 @@ module.exports = {
         const { token } = req.headers;
         if(!token)return res.status(401).json({message:"You must provide a token"});
         jwt.verify(token, process.env.APP_SECRET, function(err, decoded) {
-            if (err) return res.status(500).json({ auth: err.name, message: err.message });
+            if (err){ 
+                return res.status(500).json({ auth: err.name, message: err.message });
+            }
             req.headers.id = decoded.id;
             next();
           });
