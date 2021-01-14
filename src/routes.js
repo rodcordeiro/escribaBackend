@@ -8,17 +8,17 @@ const UserController = require('./controllers/userControllers');
 router.get('/',(req,res)=>{
     return res.status(200).json({
         app: "Escriba",
-        version: 1.0,
-        description:"This app handles list, insert, update and delete of chapters"
+        version: "2.0",
+        description:"Included Authentication system"
     })
 });
 
 //Chapters
 router.get('/chapters',chapters.index);
 router.get('/chapters/:id',chapters.search);
-router.post('/chapters/create',chapters.create);
-router.put('/chapters/:id',chapters.update);
-router.delete('/chapters/:id',chapters.delete);
+router.post('/chapters/create',jwt.verify,chapters.create);
+router.put('/chapters/:id',jwt.verify,chapters.update);
+router.delete('/chapters/:id',jwt.verify,chapters.delete);
 
 //Users
 router.get('/users',UserController.index)

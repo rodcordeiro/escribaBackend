@@ -14,13 +14,14 @@ module.exports = {
       })
   },
   async create(req,res){
-    let { username, email, password } = req.body
+    let { username, email, password, isAdmin } = req.body
     password = cript(password);
     await connection('users')
       .insert({
         username,
         email,
-        password
+        password,
+        isAdmin
       })
       .then(response=>{
         return res.status(201).json()
@@ -47,14 +48,16 @@ module.exports = {
     return res.status(200).json({token})
   },
   async update(req,res){
-    let { username, email, password } = req.body
+    let { username, email, password, isAdmin } = req.body
     const id = req.params.id ? req.params.id : req.headers.id
-    password = cript(password);
+    if(password){
+      password = cript(password);
+    }
     await connection('users')
-      .update({ username, email, password })
+      .update({ username, email, password, isAdmin })
       .where("id",id)
       .then(response=>{
-        return res.status(200).json(response)
+        return res.status(204).json()
       })
       .catch(err=>{
         return res.status(400).json(err)
