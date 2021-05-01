@@ -1,3 +1,2 @@
-worker: npx knex migrate:latest
-worker: npx knex seed:run
+worker: npx knex migrate:latest && npx knex seed:run
 web: npm start
