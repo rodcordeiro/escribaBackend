@@ -40,8 +40,9 @@ module.exports = {
       directory: './src/database/seeds/'
     },
     useNullAsDefault: true,
-    ssl: true,
-    sslfactory: org.postgresql.ssl.NonValidatingFactory
+    extra:{
+      ssl: true,
+    }
   }
 
 };
